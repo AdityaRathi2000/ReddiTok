@@ -18,11 +18,11 @@ from mutagen.mp3 import MP3
 from moviepy.video.fx.all import crop
 
 def setingUp():
-    personal_use_script = '75FzK6A6WfwBjw'
-    secret_use_script = 'pcExPZaMj3HDuy31A_TTmZdw7EB_KA'
-    app_name = 'threatwatch_v1'
-    reddit_username = 'Aditya_Rathi_4'
-    login_password = '!1Threatwatch'
+    personal_use_script = 'ENTER_PERSONAL_USE_SCRIPT'
+    secret_use_script = 'ENTER_SECRET_USE_SCRIPT'
+    app_name = 'ENTER_APPNAME'
+    reddit_username = 'ENTER_USERNAME'
+    login_password = 'ENTER_LOGIN_PASSWORD'
 
     reddit = praw.Reddit(client_id=personal_use_script, \
                          client_secret=secret_use_script, \
@@ -60,10 +60,10 @@ def setup_df(subreddit_name, filter):
     top_posts = top_posts.set_index('ID')
     return top_posts
 
-#################################### Download subway surver video ####################################################
+#################################### Download minecraft video ####################################################
 
 # link of the video to be downloaded
-#path = '/content/drive/MyDrive/UPenn/Projects/RedditTok/Video Storage'
+#path = 'ENTER_PATH'
 #link = "https://www.youtube.com/watch?v=hs7Z0JUgDeA&t=1105s"
 
 #yt = YouTube(link)
@@ -73,22 +73,17 @@ def setup_df(subreddit_name, filter):
 ######################################################################################################################
 
 def text_to_vid(testing_id, testing_text, testing_title):
-    path = "/Users/adityarathi/PycharmProjects/RedditTok/Audio Storage/{}".format(testing_id)
+    path = "PATH_TO_AUDIO_STORAGE/{}".format(testing_id)
     if not os.path.exists(path):
         os.mkdir(path)
 
     language = 'en'
     myobj = gTTS(text=testing_text, lang=language, slow=False)
 
-    sound_path_in_mp3 = "/Users/adityarathi/PycharmProjects/RedditTok/Audio Storage/{}/{}.mp3".format(testing_id,
-                                                                                                         testing_title)
-    sound_path_in_wav = "/Users/adityarathi/PycharmProjects/RedditTok/Audio Storage/{}/{}.wav".format(testing_id,
-                                                                                                         testing_title)
+    sound_path_in_mp3 = "PATH_TO_AUDIO_STORAGE/{}/{}.mp3".format(testing_id, testing_title)
+    sound_path_in_wav = "PATH_TO_AUDIO_STORAGE/{}/{}.wav".format(testing_id, testing_title)
 
     myobj.save(sound_path_in_mp3)
-    #sound = AudioSegment.from_mp3(sound_path_in_mp3)
-    #sound.export(sound_path_in_wav, format="wav")
-
     return sound_path_in_mp3, sound_path_in_wav
 
 def audio_len(path_to_audio):
@@ -103,10 +98,9 @@ def screenshot_creating(testing_id, testing_text):
 
     screenshot_counter = 1
     for screenshot in big_screen:
-        img = Image.open('/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/black_back_copy.jpg')
+        img = Image.open('PATH_TO_SCREENSHOT_STORAGE/black_back_copy.jpg')
         d1 = ImageDraw.Draw(img)
-        myFont = ImageFont.truetype('/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/verdana.ttf',
-                                    24)
+        myFont = ImageFont.truetype('PATH_TO_SCREENSHOT_STORAGE/verdana.ttf', 24)
 
         for i in range(len(screenshot)):
             from_left = 25
@@ -122,8 +116,7 @@ def screenshot_creating(testing_id, testing_text):
         sound_path_in_mp3, sound_path_in_wav = text_to_vid(testing_id, full_string.replace('AITA', 'Am I the Asshole'),
                                                            screenshot_counter)
         total_audio_len += audio_len(sound_path_in_mp3)
-        img.save("/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/{}/{}.jpeg".format(testing_id,
-                                                                                                        screenshot_counter))
+        img.save("PATH_TO_SCREENSHOT_STORAGE/{}/{}.jpeg".format(testing_id, screenshot_counter))
         screenshot_counter += 1
 
     return total_audio_len, screenshot_counter
@@ -138,20 +131,17 @@ def mask_circle_solid(pil_img, background_color, offset=0):
 
 
 def make_title_ss(testing_id, testing_title, testing_author):
-    path = "/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/{}".format(testing_id)
+    path = "PATH_TO_SCREENSHOT_STORAGE/{}".format(testing_id)
     if not os.path.exists(path):
         os.mkdir(path)
 
-    img = Image.open('/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/title_final.png')
-    im2 = Image.open('/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/reddit_acc_logo.png')
+    img = Image.open('PATH_TO_SCREENSHOT_STORAGE/title_final.png')
+    im2 = Image.open('PATH_TO_SCREENSHOT_STORAGE/reddit_acc_logo.png')
     d1 = ImageDraw.Draw(img)
 
-    verdana_reg = ImageFont.truetype('/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/verdana.ttf',
-                                     15)
-    verdana_headline = ImageFont.truetype(
-        '/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/verdana.ttf', 30)
-    verdana_bold = ImageFont.truetype(
-        '/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/verdana-bold.ttf', 15)
+    verdana_reg = ImageFont.truetype('PATH_TO_SCREENSHOT_STORAGE/verdana.ttf', 15)
+    verdana_headline = ImageFont.truetype('PATH_TO_SCREENSHOT_STORAGE/verdana.ttf', 30)
+    verdana_bold = ImageFont.truetype('PATH_TO_SCREENSHOT_STORAGE/verdana-bold.ttf', 15)
 
     d1.text((100, 15), "r/AmITheAsshole", fill=(169, 169, 169), font=verdana_bold)
     d1.text((100, 40), "u/{}".format(testing_author), fill=(30, 144, 255), font=verdana_reg)
@@ -169,13 +159,13 @@ def make_title_ss(testing_id, testing_title, testing_author):
 
     sound_path_in_mp3, sound_path_in_wav = text_to_vid(testing_id, testing_title.replace('AITA', 'Am I the Asshole'),
                                                        "title")
-    img.save("/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/{}/title.png".format(testing_id))
+    img.save("PATH_TO_SCREENSHOT_STORAGE/{}/title.png".format(testing_id))
 
     return audio_len(sound_path_in_mp3)
 
 # loading video dsa gfg intro video
 def creating_small_vid(total_video_len, testing_id):
-  clip = VideoFileClip("/Users/adityarathi/PycharmProjects/RedditTok/Video Storage/full_minecraft_video.mp4")
+  clip = VideoFileClip("PATH_TO_VIDEO_STORAGE/full_minecraft_video.mp4")
   start_of_vid = randint(100, int(clip.duration)-1000)
 
   clip = clip.subclip(start_of_vid, start_of_vid+total_video_len)  # REPLACE 5 with total_video_len
@@ -185,25 +175,25 @@ def creating_small_vid(total_video_len, testing_id):
   #clip_no_audio_resize = clip_no_audio.resize(height=1920)
   #clip_no_audio_vertical = clip_no_audio_resize.crop(x1=1166.6, y1=0, x2=2246.6, y2=1920)
 
-  path = "/Users/adityarathi/PycharmProjects/RedditTok/Video Storage/{}".format(testing_id)
+  path = "PATH_TO_VIDEO_STORAGE/{}".format(testing_id)
   if not os.path.exists(path):
       os.mkdir(path)
 
-  cropped_clip.write_videofile("/Users/adityarathi/PycharmProjects/RedditTok/Video Storage/{}/{}.mp4".format(testing_id, testing_id), verbose=False, logger=None)
+  cropped_clip.write_videofile("PATH_TO_VIDEO_STORAGE/{}/{}.mp4".format(testing_id, testing_id), verbose=False, logger=None)
 
 def mark_as_completed(testing_id):
-    with open('/Users/adityarathi/PycharmProjects/RedditTok/track.txt', 'a') as f:
+    with open('track.txt', 'a') as f:
         f.write('\n')
         f.write(testing_id)
 
 def full_video_download(testing_id, screenshot_counter):
     ######### title stuff #############
     video = VideoFileClip(
-        "/Users/adityarathi/PycharmProjects/RedditTok/Video Storage/{}/{}.mp4".format(testing_id, testing_id))
+        "PATH_TO_VIDEO_STORAGE/{}/{}.mp4".format(testing_id, testing_id))
     title_audio = AudioFileClip(
-        "/Users/adityarathi/PycharmProjects/RedditTok/Audio Storage/{}/title.mp3".format(testing_id))
+        "PATH_TO_AUDIO_STORAGE/{}/title.mp3".format(testing_id))
     title_pic = (
-        ImageClip("/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/{}/title.png".format(testing_id))
+        ImageClip("PATH_TO_SCREENSHOT_STORAGE/{}/title.png".format(testing_id))
         .set_duration(title_audio.duration)
         .resize(height=60)  # if you need to resize...
         .margin(right=8, top=8, opacity=0)  # (optional) logo-border padding
@@ -214,9 +204,9 @@ def full_video_download(testing_id, screenshot_counter):
     full_composite = [title_pic]
     for i in range(1, screenshot_counter):
         ss_audio = AudioFileClip(
-            "/Users/adityarathi/PycharmProjects/RedditTok/Audio Storage/{}/{}.mp3".format(testing_id, i))
+            "PATH_TO_AUDIO_STORAGE/{}/{}.mp3".format(testing_id, i))
         ss_image = (ImageClip(
-            "/Users/adityarathi/PycharmProjects/RedditTok/Screenshot Storage/{}/{}.jpeg".format(testing_id, i))
+            "PATH_TO_SCREENSHOT_STORAGE/{}/{}.jpeg".format(testing_id, i))
                     .set_duration(ss_audio.duration)
                     .resize(height=205)  # if you need to resize...
                     .margin(right=8, top=8, opacity=0)  # (optional) logo-border padding
@@ -226,7 +216,7 @@ def full_video_download(testing_id, screenshot_counter):
 
     final_clip = concatenate_videoclips(full_composite).set_position((20, 220))
     final = mp.CompositeVideoClip([video, final_clip])
-    final.write_videofile("/Users/adityarathi/PycharmProjects/RedditTok/Unuploaded_Complete_Videos/{}.mp4".format(testing_id),
+    final.write_videofile("/{}.mp4".format(testing_id),
                           audio_codec='aac', verbose=False, logger=None)
 
 def main_func(subreddit, filter_by):
@@ -234,7 +224,7 @@ def main_func(subreddit, filter_by):
 
   num = 0
   for testing_id in top_posts.index:
-    track_me = open("/Users/adityarathi/PycharmProjects/RedditTok/track.txt", "r")
+    track_me = open("track.txt", "r")
     if testing_id not in track_me.read():
       print("[{}/{}] - Working on {}...".format(num, len(top_posts.index), testing_id))
       testing_title = top_posts.loc[testing_id, "Title"]
